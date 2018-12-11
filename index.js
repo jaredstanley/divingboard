@@ -15,6 +15,11 @@ config:{
     y:40,
     z:40
   },
+  curAcl:{
+    alpha:0,
+    beta:0,
+    gamma:0
+  },
   curClr:"none"
 },
 init: function(){
@@ -36,6 +41,9 @@ init: function(){
        _App.config.curDeg.y = parseInt((e.gamma+90)+_App.config.yoffset)%360;
        _App.config.curDeg.z = parseInt(e.alpha+_App.config.zoffset)%360;
     });
+    if(window.DeviceMotionEvent!=undefined){
+      window.addEventListener('ondevicemotion', _App.accelerate, false);
+    }
     document.body.addEventListener("touchmove", function(event) { event.preventDefault();    event.stopPropagation();}, false);
 
   },
@@ -46,63 +54,56 @@ init: function(){
     _App.bgCanvas = document.getElementById("bgCanvas");
     _App.bgCtx = _App.bgCanvas.getContext("2d");
   },
-  createNewCanvas:function(){
-    console.log("createNewCanvas");
-    var c = document.createElement('canvas');
-    c.setAttribute("id", "canvas");
-    c.setAttribute("width", _App.width);
-    c.setAttribute("height", _App.height);
-    document.body.appendChild(c);
-    _App.mainCanvas = document.getElementById("canvas");
-    _App.mainCtx = _App.mainCanvas.getContext("2d");
-    console.log("_App.mainCanvas.width");
-  },
   update:function(){
     // console.log("update");
     //
     _App.mainCtx.clearRect(0,0,_App.mainCanvas.width, _App.mainCanvas.height)
     _App.mainCtx.fillStyle = _App.config.curClr;
-    _App.mainCtx.rect(0,0,_App.mainCanvas.width, _App.mainCanvas.height);
-    _App.mainCtx.fill();
+    // _App.mainCtx.rect(0,0,_App.mainCanvas.width, _App.mainCanvas.height);
+    // _App.mainCtx.fill();
     //
-    _App.mainCtx.fillStyle = _App.mainCtx.strokeStyle="#898989";
-    _App.mainCtx.lineWidth=2.5;
-    var count = 50;
+    _App.mainCtx.fillStyle = _App.mainCtx.strokeStyle="#e0ffff";
+    _App.mainCtx.lineWidth=1.5;
+    var count = 90;
     _App.ang+=.025;
     for (var i = 0; i < count; i++) {
-      var y = Math.cos(_App.ang+(i/10))*30+40;
+      var y = Math.cos(_App.ang+(i/6))*20+40;
       var x = (_App.mainCanvas.width/count) * i + 2;
       _App.mainCtx.beginPath();
-      _App.mainCtx.moveTo(x,0);
+      _App.mainCtx.moveTo(x,window.innerHeight);
       // _App.mainCtx.lineTo(x,Math.random()*30+10);
-      _App.mainCtx.lineTo(x,y);
+      _App.mainCtx.lineTo(x,y+(window.innerHeight*0.8));
       _App.mainCtx.stroke();
 
     }//
 
     _App.updateRGB();
-    _App.drawStats();
+   _App.drawStats();
   },
   drawStats(){
     var c =_App.config.curDeg;
+    var d =_App.config.curAcl;
 
-    _App.mainCtx.beginPath();
-    _App.mainCtx.lineWidth=2;
-    _App.mainCtx.arc(_App.mainCanvas.width/2,_App.mainCanvas.height/1.2,40,0,2*Math.PI);
-    _App.mainCtx.stroke();
-    _App.mainCtx.beginPath();
-    _App.mainCtx.arc(_App.mainCanvas.width/2,_App.mainCanvas.height/1.2,20,0,2*Math.PI);
-    _App.mainCtx.stroke();
-    _App.mainCtx.beginPath();
-    _App.mainCtx.arc(_App.mainCanvas.width/2,_App.mainCanvas.height/1.2,5,0,2*Math.PI);
-    _App.mainCtx.fill();
+    // _App.mainCtx.beginPath();
+    // _App.mainCtx.lineWidth=2;
+    // _App.mainCtx.arc(_App.mainCanvas.width/2,_App.mainCanvas.height/1.2,40,0,2*Math.PI);
+    // _App.mainCtx.stroke();
+    // _App.mainCtx.beginPath();
+    // _App.mainCtx.arc(_App.mainCanvas.width/2,_App.mainCanvas.height/1.2,20,0,2*Math.PI);
+    // _App.mainCtx.stroke();
+    // _App.mainCtx.beginPath();
+    // _App.mainCtx.arc(_App.mainCanvas.width/2,_App.mainCanvas.height/1.2,5,0,2*Math.PI);
+    // _App.mainCtx.fill();
 
     _App.mainCtx.font = "20px neutra";
     _App.mainCtx.lineWidth=1;
     _App.mainCtx.fillText(c.x,20,200);
     _App.mainCtx.fillText(c.y,20,230);
     _App.mainCtx.fillText(c.z,20,260);
-    _App.mainCtx.fillText(_App.config.curClr,20,290);
+    // _App.mainCtx.fillText(_App.config.curClr,20,290);
+    _App.mainCtx.fillText(d.beta,20,320);
+    _App.mainCtx.fillText(d.gamma,20,350);
+    _App.mainCtx.fillText(d.alpha,20,380);
 
     _App.mainCtx.save();
     _App.mainCtx.fillStyle="#000";
@@ -157,7 +158,10 @@ init: function(){
    _App.bgCanvas.setAttribute('height',  Math.min(window.innerHeight, 900));
    _App.ang = 1;
    _App.update();
-  }
+ },
+ accelerate:function(){
+
+ }
 }
 window.onload=function(){
   window._App = _App;

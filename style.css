@@ -1,5 +1,4 @@
 body{
-	/*background-color: #fff;*/
 	margin: 0px;
 	padding: 0px;
 	overflow: auto;
@@ -7,13 +6,12 @@ body{
 	color: #000;
 }
 #contentArea {
-  background-color: lightgreen;
+background: linear-gradient(180deg, rgba(224,255,255,1) 0%, rgba(99,136,199,1) 53%, rgba(45,65,140,1) 80%, rgba(13,16,59,1) 100%);
   display: flex;
   justify-content: center;
 
 }
 #gameCanvas {
-  background-color: #242424;
   position: absolute;
   /* left: 100px; */
   /* width: 100%;
@@ -24,7 +22,7 @@ body{
 }
 
 #statsPanel {
-  /* background-color: blue;
+   background-color: orange;
   display: block;
   position:inherit;
   width: 100%;
