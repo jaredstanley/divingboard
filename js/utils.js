@@ -36,7 +36,9 @@ exports.getRandom = function(){
     return Math.random();
     return (newOne() - 1) / 2147483646;
 }
-
+exports.logTest = function(){
+  console.log("logginf from utils.js");
+}
 
 exports.initSeed = function(s){
   _seed = s % 2147483647;

@@ -1,5 +1,5 @@
-// import utils from './utils';
-// import PhoneMotion from './phoneMotion';
+import utils from './utils';
+import PhoneMotion from './phoneMotion';
 // import imgList from './myjsonfile';
 // import { writeFile } from 'fs-web';
 
@@ -17,6 +17,9 @@ config:{
   curClr:"none"
 },
 init: function(){
+  console.log("init");
+  utils.logTest();
+  let p = new PhoneMotion();
     this.ang=1;
     _App.setup();
 
@@ -57,7 +60,7 @@ init: function(){
 
   },
   connectCanvas:function(){
-    console.log("connectCanvas");
+    // console.log("connectCanvas");
     _App.mainCanvas = document.getElementById("gameCanvas");
     _App.mainCtx = _App.mainCanvas.getContext("2d");
     _App.bgCanvas = document.getElementById("bgCanvas");
@@ -176,7 +179,7 @@ init: function(){
         window.requestAnimationFrame(_App.draw);
   },
   resize:function(){
-    console.log("resiiiize");
+    // console.log("resize");
    // _App.mainCanvas.width =
    // _App.mainCanvas.height =
    _App.mainCanvas.setAttribute('width',  Math.min(window.innerWidth, 600));

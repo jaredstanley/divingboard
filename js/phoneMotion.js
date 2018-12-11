@@ -10,7 +10,7 @@
 // new
 class PhoneMotion {
   constructor(){
-    //
+    console.log("phoneMotion");
   }
 
 

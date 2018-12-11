@@ -1,23 +1,21 @@
 // webpack.config.js
 module.exports = {
-  mode: 'development',
-  entry: './index.js',
+  entry: './js/script.js',
   output: {
-    filename: 'main.js',
-    publicPath: '/'
+    filename: 'js/bundle.js'
   },
   module: {
-   rules: [
-     {
-       test: /\.js$/,
-       exclude: /node_modules/,
-       use: {
-         loader: 'babel-loader',
-         options: {
-           presets: ['env']
-         }
-       }
-     }
-   ]
- }
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env']
+          }
+        }
+      }
+    ]
+  }
 };
