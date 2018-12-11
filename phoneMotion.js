@@ -10,8 +10,10 @@
 // new
 class PhoneMotion {
   constructor(){
-    
+    //
   }
+
+
   // constructor(app, color) {
     // this.subdivisions = 0;
     // this.totalPoints = 0;

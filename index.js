@@ -2,15 +2,11 @@
 // import PhoneMotion from './phoneMotion';
 // import imgList from './myjsonfile';
 // import { writeFile } from 'fs-web';
-/*
 
-*/
 var _App = {
 //
 config:{
-  xoffset:180,
-  yoffset:0,
-  zoffset:0,
+  xoffset:180,yoffset:0,zoffset:0,
   curDeg:{
     x:40,y:40,z:40
   },
