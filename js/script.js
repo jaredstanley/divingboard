@@ -14,17 +14,22 @@ config:{
     alpha:0,beta:0,gamma:0,
     alphaMax:0,betaMax:0,gammaMax:0
   },
-  curClr:"none"
+  curClr:"none",
+  palette:{
+    primary:"#66c1d3",
+    primarylt:"#defafe"
+  }
 },
 init: function(){
   console.log("init");
   utils.logTest();
-  let p = new PhoneMotion();
-    this.ang=1;
-    _App.setup();
+  _App.phone = new PhoneMotion();
+  this.ang=1;
+  _App.setup();
 
   },
   setup:function(){
+
     _App.addEvents();
     _App.connectCanvas();
     _App.resize();
@@ -32,30 +37,6 @@ init: function(){
   },
   addEvents:function(){
     window.addEventListener('resize', _App.resize, false);
-    window.addEventListener('orientationchange', _App.resize, false);
-    window.addEventListener('deviceorientation', function(e) {
-       _App.config.curDeg.x = parseInt((e.beta+180)+_App.config.xoffset)%360;
-       _App.config.curDeg.y = parseInt((e.gamma+90)+_App.config.yoffset)%360;
-       _App.config.curDeg.z = parseInt(e.alpha+_App.config.zoffset)%360;
-    });
-
-    window.addEventListener('devicemotion', function(e){
-      let c = _App.config.curAcl;
-          c.beta = Math.abs(parseInt(e.rotationRate.beta));
-          c.gamma = Math.abs(parseInt(e.rotationRate.gamma));
-          c.alpha = Math.abs(parseInt(e.rotationRate.alpha));
-      if(c.betaMax < parseInt(e.rotationRate.beta)){
-          c.betaMax  = parseInt(e.rotationRate.beta);
-      }
-      if(c.gammaMax < parseInt(e.rotationRate.gamma)){
-          c.gammaMax  = parseInt(e.rotationRate.gamma);
-      }
-      if(c.alphaMax < parseInt(e.rotationRate.alpha)){
-          c.alphaMax  = parseInt(e.rotationRate.alpha);
-      }
-
-    });
-
     document.body.addEventListener("touchmove", function(event) { event.preventDefault();    event.stopPropagation();}, false);
 
   },
@@ -74,17 +55,19 @@ init: function(){
     // _App.mainCtx.rect(0,0,_App.mainCanvas.width, _App.mainCanvas.height);
     // _App.mainCtx.fill();
     //
+
     //draw wave
-    _App.mainCtx.fillStyle = _App.mainCtx.strokeStyle="#e0ffff";
-    _App.mainCtx.lineWidth=2;
-    let count = 33;
+    _App.mainCtx.fillStyle = _App.mainCtx.strokeStyle=_App.config.palette.primary;
+    _App.mainCtx.lineWidth=8;
+    _App.mainCtx.lineCap="round";
+    let count = 22;
 
     let amp = 4;
     let speed = 0.07;
     _App.ang-=speed;
     for (let i = 0; i < count; i++) {
       let y = Math.cos(_App.ang+(i/amp))*10;
-      let x = (_App.mainCanvas.width/count) * i + 2;
+      let x = (_App.mainCanvas.width/count) * i+_App.mainCtx.lineWidth;
       _App.mainCtx.beginPath();
       _App.mainCtx.moveTo(x,window.innerHeight);
       _App.mainCtx.lineTo(x,y+(window.innerHeight*0.85));
@@ -120,7 +103,7 @@ init: function(){
     _App.mainCtx.fillText(d.alpha,20,b+180);
 
     _App.mainCtx.save();
-    _App.mainCtx.fillStyle="rgb(13,16,59)";
+    _App.mainCtx.fillStyle=_App.config.palette.primarylt;
     _App.mainCtx.fillRect(60, b-10, 100, 4 );
   	_App.mainCtx.fillRect(60, b+20, 100, 4 );
   	_App.mainCtx.fillRect(60, b+50, 100, 4 );
@@ -188,9 +171,6 @@ init: function(){
    _App.bgCanvas.setAttribute('height',  Math.min(window.innerHeight, 900));
    _App.ang = 1;
    _App.update();
- },
- accelerate:function(){
-
  }
 }
 window.onload=function(){
