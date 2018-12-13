@@ -1,7 +1,5 @@
 import utils from './utils';
 import PhoneMotion from './phoneMotion';
-// import imgList from './myjsonfile';
-// import { writeFile } from 'fs-web';
 
 var _App = {
 //
@@ -17,7 +15,8 @@ config:{
   curClr:"none",
   palette:{
     primary:"#66c1d3",
-    primarylt:"#defafe"
+    primarylt:"#defafe",
+    white:"#FFFFFF"
   }
 },
 init: function(){
@@ -103,7 +102,7 @@ init: function(){
     _App.mainCtx.fillText(d.alpha,20,b+180);
 
     _App.mainCtx.save();
-    _App.mainCtx.fillStyle=_App.config.palette.primarylt;
+    _App.mainCtx.fillStyle=_App.config.palette.primary;
     _App.mainCtx.fillRect(60, b-10, 100, 4 );
   	_App.mainCtx.fillRect(60, b+20, 100, 4 );
   	_App.mainCtx.fillRect(60, b+50, 100, 4 );
@@ -122,11 +121,11 @@ init: function(){
   	_App.mainCtx.fillRect(80, b+170, (d.alpha/2100)*100, 4 );
 
     _App.mainCtx.save();
-    _App.mainCtx.fillStyle="rgba(99,136,199,0.6)";
+    _App.mainCtx.fillStyle=_App.config.palette.white;
 //
-    _App.mainCtx.fillRect(80, b+110, (d.betaMax/2100)*100, 4 );
-  	_App.mainCtx.fillRect(80, b+140, (d.gammaMax/2100)*100, 4 );
-  	_App.mainCtx.fillRect(80, b+170, (d.alphaMax/2100)*100, 4 );
+    _App.mainCtx.fillRect(80, b+112, (d.betaMax/2100)*100, 4 );
+  	_App.mainCtx.fillRect(80, b+142, (d.gammaMax/2100)*100, 4 );
+  	_App.mainCtx.fillRect(80, b+172, (d.alphaMax/2100)*100, 4 );
     _App.mainCtx.restore();
 
 
