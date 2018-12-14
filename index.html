@@ -13,7 +13,42 @@
   <div id="contentArea">
     <canvas id="bgCanvas"></canvas>
     <canvas id="gameCanvas"></canvas>
+    <div id="startScreen" class="hidden">
+      <div class="logo">
+       <img src="img/db_logo.svg" alt="">
+      </div>
+      <div id="start_btn">
+       <img src="img/btn_start.svg" alt="">
+      </div>
+    </div>
+    <div id="lobbyScreen">
+      <div class="logo">
+       <img src="img/db_logo.svg" alt="">
+      </div>
+      <div class="score">
+        <p>Score</p>
+        <div class="scorePanel">
+          <p>0</p>
+        </div>
+      </div>
+      <div id="dive_btn">
+       <img src="img/btn_dive.svg" alt="">
+      </div>
+    </div>
+    <div id="bgElements">
+      <div id="bg_shape">
+        <img src="img/divingboard_shape.svg" alt="">
+      </div>
+      <div class="cloud left">
+        <img src="img/cloud.svg" alt="">
+      </div>
+      <div class="cloud right">
+        <img src="img/cloud.svg" alt="">
+      </div>
+    </div>
+    <canvas id="waveCanvas"></canvas>
   </div>
+
 <script src="js/bundle.js"></script>
 </body>
 </html>

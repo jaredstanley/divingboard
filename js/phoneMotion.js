@@ -5,7 +5,7 @@
 
 
 function init() {
-  console.log("phoneMotion.init()");
+  // console.log("phoneMotion.init()");
   addEvents();
 }
 function addEvents(){
@@ -37,7 +37,7 @@ function addEvents(){
 class PhoneMotion {
   constructor(app){
     this._App = app;
-    console.log("phoneMotion");
+    // console.log("phoneMotion");
     init();
   }
 

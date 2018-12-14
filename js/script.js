@@ -1,9 +1,12 @@
 import utils from './utils';
 import PhoneMotion from './phoneMotion';
 
+
 var _App = {
 //
 config:{
+  width: window.innerWidth,
+  height: window.innerHeight,
   xoffset:180,yoffset:0,zoffset:0,
   curDeg:{
     x:40,y:40,z:40
@@ -37,19 +40,43 @@ init: function(){
   addEvents:function(){
     window.addEventListener('resize', _App.resize, false);
     document.body.addEventListener("touchmove", function(event) { event.preventDefault();    event.stopPropagation();}, false);
-
+    document.getElementById("play_btn").addEventListener('click', _App.gotoLobby, false);
+    document.getElementById("play_btn").addEventListener('touchstart', _App.gotoLobby, false);
   },
   connectCanvas:function(){
-    // console.log("connectCanvas");
+    // console.log("ddd", _App.config.height);
     _App.mainCanvas = document.getElementById("gameCanvas");
     _App.mainCtx = _App.mainCanvas.getContext("2d");
     _App.bgCanvas = document.getElementById("bgCanvas");
     _App.bgCtx = _App.bgCanvas.getContext("2d");
+//
+    _App.mainCanvas.setAttribute("width", _App.config.width);
+    _App.mainCanvas.setAttribute("height", _App.config.height);
+    _App.bgCanvas.setAttribute("width", _App.config.width);
+    _App.bgCanvas.setAttribute("height", _App.config.height);
+
+    let ss = document.getElementById("startScreen");
+    ss.setAttribute("width",_App.config.width);
+    ss.setAttribute("height",_App.config.height);
+
+    _App.wc = document.getElementById('waveCanvas');
+    _App.wcCtx = _App.wc.getContext('2d');
+//
+    _App.wc.setAttribute("width", _App.config.width);
+    _App.wc.setAttribute("height", 200);
+    // _App.wc.setAttribute("height", 200);
+
+    // _App.wc.style.top=_App.config.height-200;;
+
+
+
+
   },
   update:function(){
     // console.log("update");
     //
     _App.mainCtx.clearRect(0,0,_App.mainCanvas.width, _App.mainCanvas.height)
+    _App.wcCtx.clearRect(0,0,_App.mainCanvas.width, 200)
     // _App.mainCtx.fillStyle = _App.config.curClr;
     // _App.mainCtx.rect(0,0,_App.mainCanvas.width, _App.mainCanvas.height);
     // _App.mainCtx.fill();
@@ -57,20 +84,22 @@ init: function(){
 
     //draw wave
     _App.mainCtx.fillStyle = _App.mainCtx.strokeStyle=_App.config.palette.primary;
-    _App.mainCtx.lineWidth=8;
-    _App.mainCtx.lineCap="round";
+    _App.wcCtx.fillStyle = _App.wcCtx.strokeStyle=_App.config.palette.primary;
+    _App.wcCtx.lineWidth=8;
+    _App.wcCtx.lineCap="round";
     let count = 22;
 
-    let amp = 4;
-    let speed = 0.07;
+    let amp = 6;
+    let speed = 0.03;
     _App.ang-=speed;
     for (let i = 0; i < count; i++) {
-      let y = Math.cos(_App.ang+(i/amp))*10;
-      let x = (_App.mainCanvas.width/count) * i+_App.mainCtx.lineWidth;
-      _App.mainCtx.beginPath();
-      _App.mainCtx.moveTo(x,window.innerHeight);
-      _App.mainCtx.lineTo(x,y+(window.innerHeight*0.85));
-      _App.mainCtx.stroke();
+      let y = Math.cos(_App.ang+(i/amp))*amp;
+      let x = (_App.config.width/count) * i+_App.wcCtx.lineWidth;
+      _App.wcCtx.beginPath();
+      // _App.wcCtx.moveTo(x,window.innerHeight);
+      _App.wcCtx.moveTo(x,200);
+      _App.wcCtx.lineTo(x,2*y+120);
+      _App.wcCtx.stroke();
     }
 
     _App.updateRGB();
@@ -152,6 +181,12 @@ init: function(){
     	_App.config.curClr = "hsl("+h+","+l+"%,"+s+"%)";
 
   },
+  gotoLobby:function(e){
+    document.getElementById("startScreen").className+=" hidden";
+    // console.log(e.currentTarget);
+    // e.currentTarget.className+=" hidden";
+
+  },
   draw:function() {
 
         // _App.mainCtx.strokeStyle = '#fe0000';
@@ -161,9 +196,6 @@ init: function(){
         window.requestAnimationFrame(_App.draw);
   },
   resize:function(){
-    // console.log("resize");
-   // _App.mainCanvas.width =
-   // _App.mainCanvas.height =
    _App.mainCanvas.setAttribute('width',  Math.min(window.innerWidth, 600));
    _App.mainCanvas.setAttribute('height',  Math.min(window.innerHeight, 900));
    _App.bgCanvas.setAttribute('width',  Math.min(window.innerWidth, 600));
