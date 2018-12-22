@@ -23,7 +23,7 @@ config:{
   }
 },
 init: function(){
-  console.log("init");
+  console.log("inittt");
   utils.logTest();
   _App.phone = new PhoneMotion();
   this.ang=1;
@@ -40,8 +40,10 @@ init: function(){
   addEvents:function(){
     window.addEventListener('resize', _App.resize, false);
     document.body.addEventListener("touchmove", function(event) { event.preventDefault();    event.stopPropagation();}, false);
-    document.getElementById("play_btn").addEventListener('click', _App.gotoLobby, false);
-    document.getElementById("play_btn").addEventListener('touchstart', _App.gotoLobby, false);
+    document.getElementById("start_btn").addEventListener('click', _App.gotoLobby, false);
+    document.getElementById("start_btn").addEventListener('touchstart', _App.gotoLobby, false);
+    document.getElementById("dive_btn").addEventListener('click', _App.gotoGame, false);
+    document.getElementById("dive_btn").addEventListener('touchstart', _App.gotoGame, false);
   },
   connectCanvas:function(){
     // console.log("ddd", _App.config.height);
@@ -182,7 +184,20 @@ init: function(){
 
   },
   gotoLobby:function(e){
-    document.getElementById("startScreen").className+=" hidden";
+    document.getElementById("startScreen").classList.add('hidden');
+    document.getElementById("lobbyScreen").classList.remove('hidden');
+    document.getElementById("gameScreen").classList.add('hidden');
+
+    // document.getElementById("startScreen").className+=" hidden";
+    // console.log(e.currentTarget);
+    // e.currentTarget.className+=" hidden";
+
+  },
+  gotoGame:function(e){
+    document.getElementById("startScreen").classList.add('hidden');
+    document.getElementById("lobbyScreen").classList.add('hidden');
+    document.getElementById("gameScreen").classList.remove('hidden');
+    // document.getElementById("startScreen").className+=" hidden";
     // console.log(e.currentTarget);
     // e.currentTarget.className+=" hidden";
 
